@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">myPokedex</string>
+    <string name="username">Username</string>
+    <string name="pokedex_app">Pokedex App!</string>
+    <string name="password">Password</string>
+    <string name="enter_your_credentials_to_sign_in">Enter your credentials to sign in!</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or_sign_up">Or Sign Up!</string>
+    <string name="create_an_awesome_username">Create an Awesome Username!</string>
+    <string name="now_create_a_password">Now, create a password!</string>
+    <string name="sign_up">Sign Up</string>
+</resources>

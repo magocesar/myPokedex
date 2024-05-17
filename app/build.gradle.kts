@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("kapt")
 }
 
 android {
@@ -41,6 +42,9 @@ android {
 
 dependencies {
 
+    val viewModelVersion = "2.8.0"
+    val roomVersion = "2.6.1"
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -49,4 +53,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("androidx.room:room-ktx:$roomVersion")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$viewModelVersion")
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
 }

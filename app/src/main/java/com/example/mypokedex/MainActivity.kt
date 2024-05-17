@@ -1,5 +1,6 @@
 package com.example.mypokedex
 
+import UserViewModel
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -7,22 +8,20 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.lifecycleScope
-import com.example.mypokedex.auth.AuthenticationHandler
+import com.example.mypokedex.database.UserDatabase
 import com.example.mypokedex.databinding.ActivityMainBinding
 import com.example.mypokedex.model.user.User
-import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), AuthenticationHandler.AuthCallBack {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding : ActivityMainBinding
-    private lateinit var authHandler : AuthenticationHandler
+    private lateinit var userViewModel: UserViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        authHandler = AuthenticationHandler(this)
+        userViewModel = UserViewModel(UserDatabase.getDatabase(this).userDao())
         setContentView(viewBinding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -34,9 +33,19 @@ class MainActivity : AppCompatActivity(), AuthenticationHandler.AuthCallBack {
             if(checkSignInTextFields()){
                 changeBlockingFrameVisibility()
                 changeProgressBarVisibility()
-                lifecycleScope.launch {
-                    authHandler.signIn(getSignInUsername(), getSignInPassword(), this@MainActivity)
-                }
+                userViewModel.signIn(getSignInUsername(), getSignInPassword(), object : UserViewModel.CallBack{
+                    override fun onSuccess(user: User) {
+                        changeBlockingFrameVisibility()
+                        changeProgressBarVisibility()
+                        Toast.makeText(this@MainActivity, "Welcome ${user.username}", Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onFailure(msg: String) {
+                        changeBlockingFrameVisibility()
+                        changeProgressBarVisibility()
+                        Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
         }
 
@@ -44,26 +53,20 @@ class MainActivity : AppCompatActivity(), AuthenticationHandler.AuthCallBack {
             if(checkSignUpTextFields()){
                 changeBlockingFrameVisibility()
                 changeProgressBarVisibility()
-                lifecycleScope.launch {
-                   authHandler.signUp(getSignUpUsername(), getSignUpPassword(), this@MainActivity)
-                }
+               userViewModel.signUp(getSignUpUsername(), getSignUpPassword(), object : UserViewModel.CallBack{
+                   override fun onSuccess(user: User) {
+                       changeBlockingFrameVisibility()
+                       changeProgressBarVisibility()
+                       Toast.makeText(this@MainActivity, "Welcome ${user.username}", Toast.LENGTH_SHORT).show()
+                   }
+
+                   override fun onFailure(msg: String) {
+                       changeBlockingFrameVisibility()
+                       changeProgressBarVisibility()
+                       Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
+                   }
+               })
             }
-        }
-    }
-
-    override fun onSuccess(user: User) {
-        runOnUiThread {
-            changeBlockingFrameVisibility()
-            changeProgressBarVisibility()
-            Toast.makeText(this, "Authentication successful", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onFailure(msg : String) {
-        runOnUiThread {
-            changeBlockingFrameVisibility()
-            changeProgressBarVisibility()
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
     }
 

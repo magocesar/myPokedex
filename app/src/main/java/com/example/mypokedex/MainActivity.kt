@@ -1,6 +1,5 @@
 package com.example.mypokedex
 
-import UserViewModel
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -11,17 +10,18 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.mypokedex.database.UserDatabase
 import com.example.mypokedex.databinding.ActivityMainBinding
 import com.example.mypokedex.model.user.User
+import com.example.mypokedex.view_model.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding : ActivityMainBinding
-    private lateinit var userViewModel: UserViewModel
+    private lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        userViewModel = UserViewModel(UserDatabase.getDatabase(this).userDao())
+        viewModel = MainActivityViewModel(UserDatabase.getDatabase(this).userDao())
         setContentView(viewBinding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             if(checkSignInTextFields()){
                 changeBlockingFrameVisibility()
                 changeProgressBarVisibility()
-                userViewModel.signIn(getSignInUsername(), getSignInPassword(), object : UserViewModel.CallBack{
+                viewModel.signIn(getSignInUsername(), getSignInPassword(), object : MainActivityViewModel.CallBack{
                     override fun onSuccess(user: User) {
                         changeBlockingFrameVisibility()
                         changeProgressBarVisibility()
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             if(checkSignUpTextFields()){
                 changeBlockingFrameVisibility()
                 changeProgressBarVisibility()
-               userViewModel.signUp(getSignUpUsername(), getSignUpPassword(), object : UserViewModel.CallBack{
+               viewModel.signUp(getSignUpUsername(), getSignUpPassword(), object : MainActivityViewModel.CallBack{
                    override fun onSuccess(user: User) {
                        changeBlockingFrameVisibility()
                        changeProgressBarVisibility()

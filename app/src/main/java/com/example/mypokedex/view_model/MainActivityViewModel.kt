@@ -1,10 +1,12 @@
+package com.example.mypokedex.view_model
+
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.dao.user.UserDao
 import com.example.mypokedex.model.user.User
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val userDao: UserDao) : ViewModel() {
+class MainActivityViewModel(private val userDao: UserDao) : ViewModel() {
 
     interface CallBack {
         fun onSuccess(user: User)

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".GameActivity"
+    android:id="@+id/game">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/top_view"
+        android:background="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/game_top_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/who_s_that_pokemon"
+        android:textSize="36sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/top_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/pokemon_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Pikachu"
+        android:textSize="36sp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/game_top_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/imgPokemon"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:contentDescription="@string/pokemon_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pokemon_name"
+        android:layout_margin="20dp"
+        />
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/imgPokemon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/first_op_row"
+        >
+
+        <Button
+            android:id="@+id/btn_option_1"
+            style="@style/RectangularButton"
+            android:backgroundTint="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="Bubassaur"
+            android:layout_margin="12dp"
+            />
+
+        <Button
+            android:id="@+id/btn_option_2"
+            style="@style/RectangularButton"
+            android:backgroundTint="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="Pickachu"
+            android:layout_margin="12dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/second_op_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/first_op_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/btn_option_3"
+            style="@style/RectangularButton"
+            android:backgroundTint="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="Charmander"
+            android:layout_margin="12dp"
+            />
+
+        <Button
+            android:id="@+id/btn_option_4"
+            style="@style/RectangularButton"
+            android:backgroundTint="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            tools:text="Squirtle"
+            android:layout_margin="12dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/third_op_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/second_op_row"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <Button
+            android:id="@+id/refresh_button"
+            style="@style/RectangularButton"
+            android:backgroundTint="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/refresh"
+            android:layout_margin="12dp"
+            />
+
+        <Button
+            android:id="@+id/quit_button"
+            style="@style/RectangularButton"
+            android:backgroundTint="@android:color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/return_text"
+            android:layout_margin="12dp"
+            />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/black"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

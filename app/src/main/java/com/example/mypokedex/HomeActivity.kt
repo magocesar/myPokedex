@@ -6,13 +6,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mypokedex.api.PokemonRepository
-import com.example.mypokedex.api.model.PokemonApiResult
 import com.example.mypokedex.view.PokemonAdapter
 import com.example.mypokedex.database.UserDatabase
 import com.example.mypokedex.databinding.HomeActivityBinding
-import com.example.mypokedex.model.pokemon.Pokemon
-import com.example.mypokedex.model.pokemon.PokemonType
 import com.example.mypokedex.utils.ActivityUtils
 import com.example.mypokedex.view_model.BaseViewModel
 import com.example.mypokedex.view_model.HomeActivityViewModel
@@ -59,7 +55,10 @@ class HomeActivity : AppCompatActivity() {
         }
 
         viewBinding.gameButton.setOnClickListener {
-
+            val extras = Bundle().apply {
+                putInt("userId", viewModel.currentUser.value?.uid ?: -1)
+            }
+            ActivityUtils.navigateToActivity(this@HomeActivity, GameActivity::class.java, extras, false)
         }
 
         viewBinding.returnButton.setOnClickListener {

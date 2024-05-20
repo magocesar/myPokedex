@@ -156,5 +156,12 @@
             android:text="@string/home"/>
     </LinearLayout>
 
+    <View
+        android:id="@+id/bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/black"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

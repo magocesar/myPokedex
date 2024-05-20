@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypokedex.view.PokemonAdapter
 import com.example.mypokedex.database.UserDatabase
@@ -68,7 +69,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setRecyclerView(){
         val recyclerView = viewBinding.myRecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
 
         viewModel.pokemons.observe(this, Observer { pokemons ->
             recyclerView.adapter = PokemonAdapter(pokemons)

@@ -19,7 +19,7 @@ object PokemonRepository {
         service = retrofit.create(PokemonService::class.java)
     }
 
-    suspend fun listPokemons(limit: Int = 151) : PokemonsApiResult?{
+    suspend fun listPokemons(limit: Int = 151) : PokemonsApiResult{
         return service.listPokemons(limit)
     }
 

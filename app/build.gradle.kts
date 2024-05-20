@@ -44,6 +44,8 @@ dependencies {
 
     val viewModelVersion = "2.8.0"
     val roomVersion = "2.6.1"
+    val retrofit = "2.9.0"
+    val picasso = "2.8"
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -58,4 +60,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$viewModelVersion")
     implementation("androidx.room:room-runtime:$roomVersion")
     kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("com.squareup.retrofit2:retrofit:$retrofit")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit")
+    implementation("com.squareup.picasso:picasso:$picasso")
 }

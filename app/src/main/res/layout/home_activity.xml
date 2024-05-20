@@ -5,7 +5,7 @@
     android:id="@+id/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".HomeActivity">
 
     <View
         android:layout_width="match_parent"
@@ -16,5 +16,85 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
+
+    <LinearLayout
+        android:id="@+id/first_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_view">
+
+        <Button
+            android:id="@+id/my_account_button"
+            style="@style/RectangularButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/black"
+            android:text="@string/my_account"
+            android:textColor="@color/white"
+            android:layout_marginEnd="10dp"
+            />
+
+        <Button
+            android:id="@+id/search_button"
+            style="@style/RectangularButton"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/black"
+            android:text="@string/favorites"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/second_row"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/first_row">
+
+        <Button
+            android:id="@+id/game_button"
+            style="@style/RectangularButton"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@android:color/black"
+            android:text="@string/who_s_that_pokemon"
+            android:textColor="@color/white"
+            android:layout_marginEnd="10dp"
+            />
+
+        <Button
+            android:id="@+id/return_button"
+            style="@style/RectangularButton"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:backgroundTint="@android:color/black"
+            android:text="@string/log_out"
+            android:textColor="@color/white"
+            android:layout_marginStart="10dp"
+            />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/second_row"
+        app:layout_constraintVertical_bias="0.0"
+        tools:itemCount="10"
+        tools:listitem="@layout/pokemon_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

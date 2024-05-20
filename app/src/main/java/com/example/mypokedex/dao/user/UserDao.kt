@@ -11,7 +11,7 @@ import com.example.mypokedex.model.user.User
 @Dao
 interface UserDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insertUser(vararg user: User)
+    suspend fun insertUser(vararg user: User) : LongArray
 
     @Update(onConflict = OnConflictStrategy.ABORT)
     suspend fun updateUser(user: User)

@@ -18,7 +18,8 @@ class MainActivityViewModel(private val userDao: UserDao) : ViewModel() {
             performAuthOperation(username, password, { u, p ->
                 val newUser = User(u, p)
                 try {
-                    userDao.insertUser(newUser)
+                    val uidArray = userDao.insertUser(newUser)
+                    newUser.uid = uidArray[0].toInt()
                     newUser
                 } catch (e: Exception) {
                     throw Exception("Username already exists")

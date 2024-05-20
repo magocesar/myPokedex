@@ -2,7 +2,6 @@ package com.example.mypokedex
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,6 +9,8 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.mypokedex.database.UserDatabase
 import com.example.mypokedex.databinding.ActivityMainBinding
 import com.example.mypokedex.model.user.User
+import com.example.mypokedex.utils.ActivityUtils
+import com.example.mypokedex.utils.ToastUtil
 import com.example.mypokedex.view_model.MainActivityViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -37,13 +38,13 @@ class MainActivity : AppCompatActivity() {
                     override fun onSuccess(user: User) {
                         changeBlockingFrameVisibility()
                         changeProgressBarVisibility()
-                        Toast.makeText(this@MainActivity, "Welcome ${user.username}", Toast.LENGTH_SHORT).show()
+                        goToHomeActivity(user)
                     }
 
                     override fun onFailure(msg: String) {
                         changeBlockingFrameVisibility()
                         changeProgressBarVisibility()
-                        Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
+                        ToastUtil.showToast(this@MainActivity, msg)
                     }
                 })
             }
@@ -57,17 +58,24 @@ class MainActivity : AppCompatActivity() {
                    override fun onSuccess(user: User) {
                        changeBlockingFrameVisibility()
                        changeProgressBarVisibility()
-                       Toast.makeText(this@MainActivity, "Welcome ${user.username}", Toast.LENGTH_SHORT).show()
+                       goToHomeActivity(user)
                    }
 
                    override fun onFailure(msg: String) {
                        changeBlockingFrameVisibility()
                        changeProgressBarVisibility()
-                       Toast.makeText(this@MainActivity, msg, Toast.LENGTH_SHORT).show()
+                       ToastUtil.showToast(this@MainActivity, msg)
                    }
                })
             }
         }
+    }
+
+    private fun goToHomeActivity(user : User){
+        val extras = Bundle().apply {
+            putInt("userId", user.uid)
+        }
+        ActivityUtils.navigateToActivity(this@MainActivity, HomeActivity::class.java, extras, false)
     }
 
     private fun checkSignInTextFields(): Boolean {

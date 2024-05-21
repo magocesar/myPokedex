@@ -1,26 +1,16 @@
 package com.example.mypokedex.view_model
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
-import android.graphics.Paint
-import android.graphics.drawable.Drawable
+
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.api.PokemonRepository
 import com.example.mypokedex.dao.user.UserDao
 import com.example.mypokedex.model.pokemon.Pokemon
-import com.squareup.picasso.Picasso
-import com.squareup.picasso.Target
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
+import javax.inject.Inject
 import kotlin.random.Random
 
-class GameViewModel(userDao: UserDao) : BaseViewModel(userDao) {
+class GameViewModel @Inject constructor(userDao: UserDao) : BaseViewModel(userDao) {
 
     val pokemons = MutableLiveData<List<Pokemon?>>()
     val selectedPokemon = MutableLiveData<Pokemon?>()
@@ -31,7 +21,7 @@ class GameViewModel(userDao: UserDao) : BaseViewModel(userDao) {
         }
     }
 
-    public fun gameWon(){
+    fun gameWon(){
         viewModelScope.launch {
             currentUser.value?.let {
                 it.whoIsThatPokemonPoints += 1
@@ -40,7 +30,7 @@ class GameViewModel(userDao: UserDao) : BaseViewModel(userDao) {
         }
     }
 
-    public fun gameLost(){
+    fun gameLost(){
         viewModelScope.launch {
             currentUser.value?.let {
                 if(it.whoIsThatPokemonPoints > 0){

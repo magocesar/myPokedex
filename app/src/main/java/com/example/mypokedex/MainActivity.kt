@@ -12,17 +12,20 @@ import com.example.mypokedex.model.user.User
 import com.example.mypokedex.utils.ActivityUtils
 import com.example.mypokedex.utils.ToastUtil
 import com.example.mypokedex.view_model.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewBinding : ActivityMainBinding
-    private lateinit var viewModel: MainActivityViewModel
+    @Inject
+    lateinit var viewModel: MainActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
-        viewModel = MainActivityViewModel(UserDatabase.getDatabase(this).userDao())
         setContentView(viewBinding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

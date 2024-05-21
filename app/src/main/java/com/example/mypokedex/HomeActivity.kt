@@ -1,28 +1,31 @@
 package com.example.mypokedex
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mypokedex.view.PokemonAdapter
 import com.example.mypokedex.database.UserDatabase
 import com.example.mypokedex.databinding.HomeActivityBinding
 import com.example.mypokedex.utils.ActivityUtils
 import com.example.mypokedex.view_model.BaseViewModel
 import com.example.mypokedex.view_model.HomeActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var viewBinding : HomeActivityBinding
-    private lateinit var viewModel: HomeActivityViewModel
+    @Inject
+    lateinit var viewModel: HomeActivityViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = HomeActivityBinding.inflate(layoutInflater)
-        viewModel = HomeActivityViewModel(UserDatabase.getDatabase(this).userDao())
         setContentView(viewBinding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.home)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -38,7 +41,7 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onSuccess() {
                 setOnClickListeners()
-                setRecyclerView()
+                setRecyclerViewAndViewObservers()
             }
         })
     }
@@ -51,8 +54,8 @@ class HomeActivity : AppCompatActivity() {
             ActivityUtils.navigateToActivity(this@HomeActivity, AccountActivity::class.java, extras, false)
         }
 
-        viewBinding.searchButton.setOnClickListener{
-
+        viewBinding.refreshButton.setOnClickListener{
+            viewModel.fetchPokemons()
         }
 
         viewBinding.gameButton.setOnClickListener {
@@ -67,12 +70,20 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun setRecyclerView(){
+    private fun setRecyclerViewAndViewObservers(){
         val recyclerView = viewBinding.myRecyclerView
         recyclerView.layoutManager = GridLayoutManager(this, 2)
 
         viewModel.pokemons.observe(this, Observer { pokemons ->
             recyclerView.adapter = PokemonAdapter(pokemons)
+        })
+
+        viewModel.loadingState.observe(this, Observer { loadingState ->
+            if(loadingState){
+                viewBinding.loadingProgressBar.visibility = View.VISIBLE
+            } else {
+                viewBinding.loadingProgressBar.visibility = View.GONE
+            }
         })
 
         viewModel.fetchPokemons()

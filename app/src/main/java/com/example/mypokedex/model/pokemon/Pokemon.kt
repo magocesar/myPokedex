@@ -1,7 +1,5 @@
 package com.example.mypokedex.model.pokemon
 
-import android.graphics.Bitmap
-import kotlinx.coroutines.suspendCancellableCoroutine
 
 data class Pokemon(
     val number : Int,

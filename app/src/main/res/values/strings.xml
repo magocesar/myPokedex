@@ -19,7 +19,7 @@
     <string name="log_out">Log Out!</string>
     <string name="who_s_that_pokemon">Who\'s That Pokemon?</string>
     <string name="pokemon_image">Pokemon Image</string>
-    <string name="favorites">Favorites</string>
     <string name="return_text">Return</string>
     <string name="refresh">Refresh!</string>
+    <string name="play_app_game">Play App Game</string>
 </resources>

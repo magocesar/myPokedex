@@ -3,7 +3,6 @@ package com.example.mypokedex.model.user
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import java.io.Serializable
 
 @Entity(indices = [Index(value = ["username"], unique = true)])
 class User(

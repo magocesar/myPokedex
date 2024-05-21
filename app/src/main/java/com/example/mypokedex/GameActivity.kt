@@ -12,16 +12,19 @@ import com.example.mypokedex.utils.ActivityUtils
 import com.example.mypokedex.view_model.BaseViewModel
 import com.example.mypokedex.view_model.GameViewModel
 import com.squareup.picasso.Picasso
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class GameActivity : AppCompatActivity() {
 
     private lateinit var viewBinding : GameActivityBinding
-    private lateinit var viewModel : GameViewModel
+    @Inject
+    lateinit var viewModel : GameViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = GameActivityBinding.inflate(layoutInflater)
-        viewModel = GameViewModel(UserDatabase.getDatabase(this).userDao())
         setContentView(viewBinding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.game)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

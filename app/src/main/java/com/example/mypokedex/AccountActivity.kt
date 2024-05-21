@@ -11,16 +11,19 @@ import com.example.mypokedex.utils.ActivityUtils
 import com.example.mypokedex.utils.ToastUtil
 import com.example.mypokedex.view_model.AccountViewModel
 import com.example.mypokedex.view_model.BaseViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AccountActivity : AppCompatActivity(){
 
     private lateinit var viewBinding : AccountActivityBinding
-    private lateinit var viewModel : AccountViewModel
+    @Inject
+    lateinit var viewModel : AccountViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = AccountActivityBinding.inflate(layoutInflater)
-        viewModel = AccountViewModel(UserDatabase.getDatabase(this).userDao())
         setContentView(viewBinding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.account)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

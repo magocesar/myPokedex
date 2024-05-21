@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.mypokedex.dao.user.UserDao
 import com.example.mypokedex.model.user.User
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AccountViewModel(userDao: UserDao) : BaseViewModel(userDao) {
+class AccountViewModel @Inject constructor(userDao: UserDao) : BaseViewModel(userDao) {
 
     fun updateUser(newUsername : String, newPassword : String, callback: CallBack){
         viewModelScope.launch {

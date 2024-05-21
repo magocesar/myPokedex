@@ -7,13 +7,18 @@ import com.example.mypokedex.api.PokemonRepository
 import com.example.mypokedex.dao.user.UserDao
 import com.example.mypokedex.model.pokemon.Pokemon
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeActivityViewModel(userDao: UserDao) : BaseViewModel(userDao) {
+class HomeActivityViewModel @Inject constructor(userDao: UserDao) : BaseViewModel(userDao) {
 
     private val _pokemons = MutableLiveData<List<Pokemon?>>()
     val pokemons: LiveData<List<Pokemon?>> = _pokemons
+    val loadingState = MutableLiveData<Boolean>()
 
     fun fetchPokemons() {
+        loadingState.postValue(true)
+        //Empty the list of pokemons
+        _pokemons.postValue(emptyList())
         viewModelScope.launch {
             val pokemonsApiResult = PokemonRepository.listPokemons()
             pokemonsApiResult?.results?.let {
@@ -31,6 +36,7 @@ class HomeActivityViewModel(userDao: UserDao) : BaseViewModel(userDao) {
                         )
                     }
                 }
+                loadingState.postValue(false)
                 _pokemons.postValue(pokemons)
             }
         }
